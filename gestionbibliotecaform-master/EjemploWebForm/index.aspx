@@ -29,7 +29,7 @@
                     <ControlStyle CssClass="btn btn-info" />
                  </asp:ButtonField>
                 <asp:ButtonField CommandName="deleteUsuario" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
-                    <ControlStyle CssClass="btn btn-danger" />
+                    <ControlStyle CssClass="btn btn-danger" /> 
                  </asp:ButtonField>
                 <asp:BoundField DataField="codigoUsuario" Visible="False" />
             </Columns>
