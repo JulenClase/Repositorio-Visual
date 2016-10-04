@@ -22,7 +22,7 @@ namespace WebApplication1
         {
             try
             {
-                string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["formacion-to15.GESTLIBRERIA"].ConnectionString;
                 string SQL = "SELECT * FROM usuarios";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
@@ -44,13 +44,34 @@ namespace WebApplication1
         protected void grdv_Usuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string comand = e.CommandName;
-            //int codigo = 
+            int index = Convert.ToInt32(e.CommandArgument);
             switch (comand) {
                 case "editUsuario":
                     //hemos pulsado el boton de editar;
                     break;
                 case "deleteUsuario":
                     //hemos pulsado el boton de borrar;
+                    string codigo = grdv_Usuarios.DataKeys[index].Value.ToString();
+                    string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+                    string SQL = "DELETE FROM usuarios WHERE id=" + codigo;
+                    SqlConnection conn = null;
+                    try {
+                        
+                        conn = new SqlConnection(cadenaConexion);
+                        conn.Open();
+                        SqlCommand sqlcmd = new SqlCommand(SQL, conn);
+                        sqlcmd.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex){
+                        Console.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+
+                    
+                    
                     break;
             }
         }
