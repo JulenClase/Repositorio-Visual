@@ -22,7 +22,7 @@ namespace WebApplication1
         {
             try
             {
-                string cadenaConexion = ConfigurationManager.ConnectionStrings["formacion-to15.GESTLIBRERIA"].ConnectionString;
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
                 string SQL = "SELECT * FROM usuarios";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
@@ -50,30 +50,46 @@ namespace WebApplication1
                     //hemos pulsado el boton de editar;
                     break;
                 case "deleteUsuario":
-                    //hemos pulsado el boton de borrar;
-                    string codigo = grdv_Usuarios.DataKeys[index].Value.ToString();
-                    string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-                    string SQL = "DELETE FROM usuarios WHERE id=" + codigo;
-                    SqlConnection conn = null;
-                    try {
-                        
-                        conn = new SqlConnection(cadenaConexion);
-                        conn.Open();
-                        SqlCommand sqlcmd = new SqlCommand(SQL, conn);
-                        sqlcmd.ExecuteNonQuery();
-                    }
-                    catch (SqlException ex){
-                        Console.WriteLine(ex.Message);
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append(@"<script>");
+                    sb.Append("if(confirm('¿Esta seguro?')){}else{{}");
 
-                    
-                    
+                    sb.Append(@"</script>");
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "confirmarBorrado", sb.ToString(),true);
+                    deleteUsuario();
                     break;
             }
+        }
+
+        private void cancelDelete()
+        {
+
+        }
+        private void deleteUsuario()
+        {
+            string codigo = grdv_Usuarios.DataKeys[index].Value.ToString();
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            string SQL = "DELETE FROM usuarios WHERE id=" + codigo;
+            SqlConnection conn = null;
+            try
+            {
+
+                conn = new SqlConnection(cadenaConexion);
+                conn.Open();
+                SqlCommand sqlcmd = new SqlCommand(SQL, conn);
+                sqlcmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+
         }
     }
 }
