@@ -45,51 +45,40 @@ namespace WebApplication1
         {
             string comand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
+            //int codigo = 
             switch (comand) {
                 case "editUsuario":
-                    //hemos pulsado el boton de editar;
+
                     break;
                 case "deleteUsuario":
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    sb.Append(@"<script>");
-                    sb.Append("if(confirm('¿Esta seguro?')){}else{{}");
+                    string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+                    string codigo = grdv_Usuarios.DataKeys[index].Value.ToString();
 
-                    sb.Append(@"</script>");
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "confirmarBorrado", sb.ToString(),true);
-                    deleteUsuario();
+                    string SQL = "DELETE FROM usuarios WHERE codigoUsuario=" + codigo;
+                    //"call xxxx(?,?);
+                    //"exec xxx(@id);
+                    SqlConnection conn = null;
+                    try { 
+                       conn = new SqlConnection(cadenaConexion);
+                        conn.Open();
+                        SqlCommand sqlcmm = new SqlCommand();
+                        sqlcmm.Connection = conn;
+                        sqlcmm.CommandText = SQL;
+                        sqlcmm.CommandType = CommandType.Text;
+                       // sqlcmm.CommandType = CommandType.StoredProcedure;
+                        sqlcmm.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+
                     break;
             }
-        }
-
-        private void cancelDelete()
-        {
-
-        }
-        private void deleteUsuario()
-        {
-            string codigo = grdv_Usuarios.DataKeys[index].Value.ToString();
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-            string SQL = "DELETE FROM usuarios WHERE id=" + codigo;
-            SqlConnection conn = null;
-            try
-            {
-
-                conn = new SqlConnection(cadenaConexion);
-                conn.Open();
-                SqlCommand sqlcmd = new SqlCommand(SQL, conn);
-                sqlcmd.ExecuteNonQuery();
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-
-
         }
     }
 }
