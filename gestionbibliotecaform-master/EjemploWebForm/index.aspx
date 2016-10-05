@@ -16,6 +16,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager runat="server" ID="ScripManager" />
     <div>
         <asp:Menu ID="Menu1" runat="server">
             <Items>
@@ -23,7 +24,8 @@
             </Items>
         </asp:Menu>
     
-        <asp:GridView DataKeyNames="codigoUsuario" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
+    <asp:Button ID="btnCrearUsuario" OnClick="btnCrearUsuario_Click" runat="server" Text="Crear" />
+        <asp:GridView DataKeyNames="id" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
             <Columns>
                 <asp:ButtonField CommandName="editUsuario" Text="Editar" ControlStyle-CssClass="btn btn-info">
                     <ControlStyle CssClass="btn btn-info" />
@@ -31,8 +33,8 @@
                 <asp:ButtonField CommandName="deleteUsuario" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
                     <ControlStyle CssClass="btn btn-danger" />
                  </asp:ButtonField>
-                <asp:BoundField DataField="codigoUsuario" Visible="False" />
-                <asp:BoundField DataField="nombreUsuario" Visible="true" />
+                <asp:BoundField DataField="id" Visible="False" />
+                <asp:BoundField DataField="nombre" HeaderText="Nombre Usuario" Visible="true" />
             </Columns>
         </asp:GridView>
          
@@ -45,34 +47,31 @@
         <h4 class="modal-title" id="exampleModalLabel">Formulario</h4>
       </div>
       <div class="modal-body">
-       <asp:Label runat="server" ID="lblIdUsuario" Visible="false" Text="Label"></asp:Label>
-        <asp:UpdatePanel runat="server" ID="updatePanelUsuario">
+       <asp:Label runat="server" ID="lblIdUsuario" Visible="false" Text=""></asp:Label>
+        <!--<asp:UpdatePanel runat="server" ID="updatePanelUsuario">
             <ContentTemplate>
                 <asp:DetailsView runat="server" ID="detailsUsuario">
-                    <Fields>
-                        
-                        <asp:BoundField DataField="nombreUsuario" Visible=" true" />
+                    <Fields>                        
+                        <asp:BoundField DataField="nombre" Visible=" true" />
                     </Fields>
-                  
                 </asp:DetailsView>
             </ContentTemplate>
-        </asp:UpdatePanel>
+        </asp:UpdatePanel>-->
+          <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
 
-      </div>
-      <div class="modal-footer">
-          <!--
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              --->
-        
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-        <asp:Button runat="server" OnClick="btnCancelarUsuario_Click"  id="btnCancelarUsuario" Text="Cancelar" />
-        <asp:Button runat="server" OnClick="btnGuardarUsuario_Click"  id="btnGuardarUsuario" Text="Guardar" />
+            <asp:Button runat="server" OnClick="btnGuardarUsuario_Click"  id="btnGuardarUsuario" Text="Guardar" />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>
+
     
-        <div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -80,19 +79,22 @@
         <h4 class="modal-title" id="">Borrar</h4>
       </div>
       <div class="modal-body">
-          Esta usted seguro que desea borrar?
-          <asp:TextBox ID="txtIdUsuario" runat="server" Enabled="false" Visible="false"></asp:TextBox>
-          <asp:Button ID="btnCancelDelete" runat="server" OnClick="" Text="Cancelar" />
-          <asp:Button ID="btnDelete" runat="server" OnClick="" Text="Borrar" />
+          <!--
+          
+          -->
+          <asp:Label ID="lblMensaje" runat="server" Text="¿Seguro de borrar?"></asp:Label>
+          <asp:TextBox ID="txtdelIdUsuario" runat="server" Enabled="false" Visible="false"></asp:TextBox>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <asp:Button id="btnBorrado" OnClick="btnDelete_Click" runat="server" Text="Aceptar"></asp:Button>
+       <!--
+           <button type="button" class="btn btn-primary">Aceptar</button>
+          -->
       </div>
     </div>
   </div>
 </div>
-    </div>
     </form>
 </body>
 </html>
