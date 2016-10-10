@@ -1,0 +1,20 @@
+﻿Estructura MVC
+	App_DATA
+		-archivos SQL
+	Content
+		-CSS
+	Controllers
+		-controladores
+	DAL
+		-Data Acces Layer
+	Loggin
+		-logs
+	Models
+		-"beans/pojo/persistencia"
+	Properties
+		-props
+	Views
+		-
+	PACKAGE.config
+	GLOBAL.asax
+	Web.config
