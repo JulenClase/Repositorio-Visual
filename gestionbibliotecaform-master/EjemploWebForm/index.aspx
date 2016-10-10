@@ -23,48 +23,56 @@
                 <asp:MenuItem NavigateUrl="~/index.aspx" Text="Pagina principal" Value="Pagina principal"></asp:MenuItem>
             </Items>
         </asp:Menu>
-    
-    <asp:Button ID="btnCrearUsuario" OnClick="btnCrearUsuario_Click" runat="server" Text="Crear" />
-        <asp:GridView DataKeyNames="id" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
-            <Columns>
-                <asp:ButtonField CommandName="editUsuario" Text="Editar" ControlStyle-CssClass="btn btn-info">
-                    <ControlStyle CssClass="btn btn-info" />
-                 </asp:ButtonField>
-                <asp:ButtonField CommandName="deleteUsuario" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
-                    <ControlStyle CssClass="btn btn-danger" />
-                 </asp:ButtonField>
-                <asp:BoundField DataField="id" Visible="False" />
-                <asp:BoundField DataField="nombre" HeaderText="Nombre Usuario" Visible="true" />
-            </Columns>
-        </asp:GridView>
+    <asp:UpdatePanel runat="server">
+       <ContentTemplate>
+        <asp:Button ID="btnCrearUsuario" OnClick="btnCrearUsuario_Click" runat="server" Text="Crear" />
+            <asp:GridView DataKeyNames="id" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
+                <Columns>                    
+                    <asp:BoundField DataField="id" Visible="False" />
+                    <asp:BoundField DataField="nombre" HeaderText="Nombre Usuario" Visible="true" />
+                    <asp:BoundField DataField="apellidos" HeaderText="Apellidos" Visible="true" />
+                    <asp:BoundField DataField="password" HeaderText="Pass" Visible="true" />
+                    <asp:BoundField DataField="fNacimiento" HeaderText="Fnacimiento" Visible="true" />
+                    <asp:BoundField DataField="email" HeaderText="Email" Visible="true" />
+                    <asp:BoundField DataField="borrado" HeaderText="borrado" Visible="true" />
+                    <asp:ButtonField CommandName="editUsuario" Text="Editar" ControlStyle-CssClass="btn btn-info">
+                        <ControlStyle CssClass="btn btn-info" />
+                     </asp:ButtonField>
+                    <asp:ButtonField CommandName="deleteUsuario" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
+                        <ControlStyle CssClass="btn btn-danger" />
+                     </asp:ButtonField>
+                </Columns>
+            </asp:GridView>
+        </ContentTemplate>
+      </asp:UpdatePanel>
          
 
  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="exampleModalLabel">Formulario</h4>
       </div>
       <div class="modal-body">
        <asp:Label runat="server" ID="lblIdUsuario" Visible="false" Text=""></asp:Label>
-        <!--<asp:UpdatePanel runat="server" ID="updatePanelUsuario">
-            <ContentTemplate>
-                <asp:DetailsView runat="server" ID="detailsUsuario">
-                    <Fields>                        
-                        <asp:BoundField DataField="nombre" Visible=" true" />
-                    </Fields>
-                </asp:DetailsView>
-            </ContentTemplate>
-        </asp:UpdatePanel>-->
-          <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
-
+            <div class="form-group">          
+                <asp:Label runat="server" ID="lblNombre" Visible="true" Text="Nombre:"></asp:Label>
+                <asp:TextBox ID="txtNombre" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+            </div>
+          <div class="form-group">
+             <asp:Label runat="server" ID="lblApellidos" Visible="true" Text="Apellidos:"></asp:Label>
+             <asp:TextBox ID="txtApellidos" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+          </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
             <asp:Button runat="server" OnClick="btnGuardarUsuario_Click"  id="btnGuardarUsuario" Text="Guardar" />
           </div>
+             </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
       </div>
     </div>
@@ -79,18 +87,13 @@
         <h4 class="modal-title" id="">Borrar</h4>
       </div>
       <div class="modal-body">
-          <!--
           
-          -->
           <asp:Label ID="lblMensaje" runat="server" Text="¿Seguro de borrar?"></asp:Label>
           <asp:TextBox ID="txtdelIdUsuario" runat="server" Enabled="false" Visible="false"></asp:TextBox>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         <asp:Button id="btnBorrado" OnClick="btnDelete_Click" runat="server" Text="Aceptar"></asp:Button>
-       <!--
-           <button type="button" class="btn btn-primary">Aceptar</button>
-          -->
       </div>
     </div>
   </div>

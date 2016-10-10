@@ -30,7 +30,7 @@ namespace EjemploWebForm
                 SqlDataAdapter dAdapter = new SqlDataAdapter(SQL, conn);
                 dAdapter.Fill(ds);
                 dt = ds.Tables[0];
-
+                
                 grdv_Usuarios.DataSource = dt;
                 grdv_Usuarios.DataBind();
                 conn.Close();
@@ -56,6 +56,7 @@ namespace EjemploWebForm
                         sb.Append(@"<script>");
                         sb.Append("$('#editModal').modal('show')");
                         sb.Append(@"</script>");
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "MostrarCreate", sb.ToString(), false);
 
 
                     }
@@ -175,6 +176,7 @@ namespace EjemploWebForm
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             lblIdUsuario.Text = "-1";
             txtNombre.Text = "";
+            txtApellidos.Text = "";
             sb.Append(@"<script>");
             sb.Append("$('#editModal').modal('show')");
             sb.Append(@"</script>");
