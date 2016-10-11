@@ -15,16 +15,20 @@ namespace gestionBibliotecaMVC.Models
         private string _nickName;
         private string _email;
         private string _dni;
+        private IList<Prestamo> _prestamos;
+
         public Usuario()
         {
-            _codigoUsuario = new Guid("-1");
-            _nombre = "";
-            _apellidos = "";
-            _fechaNacimiento = new DateTime();
-            _password = "";
-            _nickName = "";
-            _email = "";
-            _dni = "";
+            this._codigoUsuario = new Guid("-1");
+            this._nombre = "";
+            this._apellidos = "";
+            this._fechaNacimiento = new DateTime();
+            this._password = "";
+            this._nickName = "";
+            this._email = "";
+            this._dni = "";
+            this._prestamos = null;
+
         }
         public Guid CodigoUsuario
         {
@@ -127,6 +131,19 @@ namespace gestionBibliotecaMVC.Models
             set
             {
                 _dni = value;
+            }
+        }
+
+        public IList<Prestamo> Prestamos
+        {
+            get
+            {
+                return _prestamos;
+            }
+
+            set
+            {
+                _prestamos = value;
             }
         }
     }
