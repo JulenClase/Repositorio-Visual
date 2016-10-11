@@ -7,7 +7,7 @@ namespace gestionBibliotecaMVC.Models
 {
     public class Usuario
     {
-        private Guid _codigoUsuario;
+        private Guid _codigoUsuario;  
         private string _nombre;
         private string _apellidos;
         private DateTime _fechaNacimiento;
